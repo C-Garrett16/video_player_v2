@@ -1,0 +1,160 @@
+/* Base Style */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  text-align: center;
+}
+
+video {
+  width: 100%;
+  padding: 0;
+}
+
+input[type='range'] {
+  -webkit-appearance: none !important;
+  background: #000;
+  border: #666 1px solid;
+  height: 4px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: #e6e6e6;
+  height: 15px;
+  width: 15px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+/* ID Selectors */
+
+#video-player-box {
+  position: relative;
+}
+
+#control-bar {
+  width: 100%;
+  position: absolute;
+  padding-bottom: 5px;
+  left: 0;
+  bottom: 4px;
+  background: linear-gradient(transparent, #1b1b1b);
+  color: #eee;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#play-button,
+#mute-button,
+#fullscreen-button {
+  cursor: pointer;
+  width: 25px;
+  height: 27px;
+  border: none;
+  opacity: .7;
+}
+
+#play-button:hover,
+#mute-button:hover,
+#fullscreen-button:hover {
+  opacity: 1;
+  transition: .2s ease-out;
+}
+
+#time-rail {
+  opacity: .8;
+  margin: 10px auto;
+  width: 100%;
+}
+
+#play-button {
+  margin-left: 20px;
+  background: url(../icons/play-icon.png) center no-repeat;
+}
+
+#time-container {
+  margin-top: 3px;
+  margin-right: auto;
+  margin-left: 20px;
+}
+
+#mute-button {
+  background: url("../icons/volume-on-icon.png") center center no-repeat;
+  margin-right: 40px;
+}
+
+#volume-slider {
+  display: none;
+}
+
+#fullscreen-button {
+  margin-right: 20px;
+  background: url("../icons/fullscreen-icon.png") center center no-repeat;
+}
+
+#para-box {
+  margin: 0 auto;
+  width: 85%;
+}
+
+#para-box p,
+#footer p {
+  line-height: 35px;
+  font-size: 1.1em;
+  color: rgb(145,145,145);
+}
+
+.highlight {
+  color: #5cd65c;
+}
+
+/* Class Selectors */
+
+.divider {
+  margin: 30px auto;
+  width: 95%;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #5cd65c;
+}
+
+/* Media Queries */
+
+@media (min-width: 1000px) {
+
+  video,
+  #video-player-box {
+    padding: 0;
+    margin: 0 auto;
+    width: 900px;
+    height: 500px;
+  }
+
+  #control-bar {
+    width: 888px;
+    left: 6px;
+    bottom: 0px;
+  }
+
+  #para-box {
+    width: 70%;
+    border: #5cd65c 5px solid;
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+  #para-box p {
+    font-size: 1.5em;
+  }
+
+  .divider {
+    display: none;
+    /*width: 80%;*/
+  }
+
+}
