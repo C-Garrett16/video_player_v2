@@ -7,35 +7,20 @@ var $fullscreenButton = $('#fullscreen-button');
 var timeRail = document.getElementById('time-rail');
 var currentTime = document.getElementById('current-time');
 var totalTime = document.getElementById('total-time');
-var trackTimes = ["00:00:00.240",
-                  "00:00:04.130 --> 00:00:07.535",
-                  "00:00:07.535 --> 00:00:11.270",
-                  "00:00:11.270 --> 00:00:13.960",
-                  "00:00:13.960 --> 00:00:17.940",
-                  "00:00:17.940 --> 00:00:22.370",
-                  "00:00:22.370 --> 00:00:26.880",
-                  "00:00:26.880 --> 00:00:30.920",
-                  "00:00:32.100 --> 00:00:34.730",
-                  "00:00:34.730 --> 00:00:39.430",
-                  "00:00:39.430 --> 00:00:41.190",
-                  "00:00:42.350 --> 00:00:46.300",
-                  "00:00:46.300 --> 00:00:49.270",
-                  "00:00:49.270 --> 00:00:53.760",
-                  "00:00:53.760 --> 00:00:57.780",
-                  "00:00:57.780 --> 00:01:00.150"];
 var transcriptBox = document.getElementById("para-box");
 var transcript = transcriptBox.getElementsByTagName("span");
 
 
 timeRail.addEventListener("change", videoSeek);
 video.addEventListener("timeupdate", updateTime);
-video.addEventListener();
+video.addEventListener("timeupdate", updateTranscript);
+video.addEventListener("timeupdate", clickSpan);
 
-$('#video-player-box').mouseover(function () {
+$playerBox.mouseover(function () {
   $controlBar.slideDown('fast');
 });
 
-$('#video-player-box').mouseleave(function () {
+$playerBox.mouseleave(function () {
   $controlBar.slideUp('fast');
 });
 
@@ -54,7 +39,7 @@ $playPauseButton.click(function () {
 //======= Range Slider =======//
 
 function videoSeek () {
-  var seekTo = video.duration * (timeRail.value / 100)
+  var seekTo = video.duration * (timeRail.value / 100);
   video.currentTime = seekTo;
 }
 
@@ -89,9 +74,7 @@ $muteButton.click(function () {
     video.muted = true;
     $muteButton.css('background', 'url(icons/volume-off-icon.png) center center no-repeat');
   }
-})
-
-
+});
 
 //======= Fullscreen Button =======//
 
@@ -105,7 +88,7 @@ $fullscreenButton.click(function() {
   }
 });
 
-function convertTimeString(time) {
+function timeToString(time) {
     var result;
     var hours = parseInt(time.substr(0, 2));
     var minutes = parseInt(time.substr(3, 2));
@@ -116,17 +99,29 @@ function convertTimeString(time) {
 }
 
 //======= Transcript =======//
-function updateTranscript (time) {
+
+function updateTranscript () {
+  var time = video.currentTime;
   if (transcript.length > 0) {
     for (var i = 0; i < transcript.length; i++) {
-      //compare time to captions data
-      var startTime = convertTimeString(transcript[i].dataset.start);
-      var endTime = convertTimeString(transcript[i].dataset.end);
-      if (time >= startTime && time <= endTime ) {
-          transcript[i].className = "highlight";
+      var startTime = timeToString(transcript[i].dataset.timeStart);
+      var endTime = timeToString(transcript[i].dataset.timeEnd);
+      if (time >= startTime && time < endTime) {
+        transcript[i].className = "highlight-text";
+        transcript[i] = "highlight-text";
       } else {
-          transcript[i].className = "";
+        transcript[i].className = "";
       }
+    }
+  }
+}
+
+function clickSpan () {
+  if (transcript.length > 0) {
+    for (var i = 0; i < transcript.length; i++) {
+      transcript[i].addEventListener("click", function (event) {
+        video.currentTime = timeToString(this.dataset.timeStart);
+      });
     }
   }
 }

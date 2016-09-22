@@ -109,11 +109,14 @@ input[type='range']::-webkit-slider-thumb {
   color: rgb(145,145,145);
 }
 
-.highlight {
-  color: #5cd65c;
-}
 
 /* Class Selectors */
+
+.highlight-text {
+  transition: easeout .2s;
+  color: #5cd65c;
+  font-weight: bold;
+}
 
 .divider {
   margin: 30px auto;
@@ -121,6 +124,10 @@ input[type='range']::-webkit-slider-thumb {
   height: 10px;
   border-radius: 5px;
   background-color: #5cd65c;
+}
+
+.time-rail-playback {
+  background: #5cd65c;
 }
 
 /* Media Queries */
@@ -154,7 +161,6 @@ input[type='range']::-webkit-slider-thumb {
 
   .divider {
     display: none;
-    /*width: 80%;*/
   }
 
 }
